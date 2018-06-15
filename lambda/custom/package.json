@@ -1,0 +1,10 @@
+{
+  "name": "alexa-lol-stats",
+  "version": "1.0.0",
+  "author": "Aaron Johnson",
+  "dependencies": {
+    "ask-sdk": "^2.0.6",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
+  }
+}
