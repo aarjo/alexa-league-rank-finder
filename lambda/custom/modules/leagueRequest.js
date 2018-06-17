@@ -59,17 +59,22 @@ async function getRankById(region, id, ladder) {
 const leagueRequest = {};
 
 leagueRequest.getRank = async function(region, championId, name, ladder) {
-    let matchData = await getMatch(region, name);
-    if (matchData) {
-        let match = JSON.parse(matchData);
-        let participants = match.participants;
-        for (var player in participants) {
-            if (participants[player].championId === championId) {
-                return await getRankById(region, participants[player].summonerId, ladder);
+    let rank = {};
+    let matchData = await getMatch(region, name).then(async(matchData) => {
+        if (matchData) {
+            let match = JSON.parse(matchData);
+            let participants = match.participants;
+            for (var player in participants) {
+                if (participants[player].championId === championId) {
+                    rank = await getRankById(region, participants[player].summonerId, ladder);
+                }
             }
         }
-    }
-    return {};
+    },
+    err => {
+        return {};
+    });
+    return rank;
 }
 
 

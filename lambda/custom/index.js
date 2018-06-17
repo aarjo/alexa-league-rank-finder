@@ -142,7 +142,7 @@ const GetNameIntent = {
 
         if (name) {
             return responseBuilder
-                .speak(`Your name is ${name}.`)
+                .speak(`Your name is ${name}. If I pronounced that badly, you can ask me to spell out your name to make sure I got it right.`)
                 .reprompt('Try asking me what a champion\'s flex rank is in your current game.')
                 .getResponse();
         }
@@ -150,6 +150,32 @@ const GetNameIntent = {
         return handlerInput.responseBuilder
             .speak('Your name is not set yet. Try saying: my name is, and then your summoner name')
             .reprompt('Try saying: I am in North America')
+            .getResponse();
+    },
+}
+
+const SpellNameIntent = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest' && request.intent.name === 'spellNameIntent';
+    },
+
+    async handle(handlerInput) {
+        const { attributesManager, responseBuilder } = handlerInput;
+
+        const sessionAttributes = attributesManager.getSessionAttributes();
+        let name = sessionAttributes.name;
+
+        if (name) {
+            return responseBuilder
+                .speak(`Your name is <say-as interpret-as="spell-out">${name}</say-as>.`)
+                .reprompt('Try asking me what a champion\'s flex rank is in your current game.')
+                .getResponse();
+        }
+
+        return handlerInput.responseBuilder
+            .speak('Your name is not set yet. Try saying: my name is, and then your summoner name')
+            .reprompt('Try saying: my name is, and then your summoner name')
             .getResponse();
     },
 }
@@ -196,7 +222,7 @@ const SetNameIntent = {
             let value = slotValue(requestEnvelope.request.intent.slots['c' + char]);
             let current = value.name;
             
-            if(!current)
+            if(!current || current === 'over')
                 break;
 
             switch (current) {
@@ -246,7 +272,7 @@ const SetNameIntent = {
             attributesManager.setPersistentAttributes(sessionAttributes);
             await attributesManager.savePersistentAttributes();
             return responseBuilder
-                .speak(`I have set your name to ${name}.`)
+                .speak(`I have set your name to ${name}. If I pronounced that badly, you can ask me to spell out your name to make sure I got it right.`)
                 .reprompt(sessionAttributes.region ? 'What can I do for you?' : 'Try telling me your region now.')
                 .getResponse();
         }
@@ -355,6 +381,7 @@ exports.handler = skillBuilder
         GetRegionIntent,
         GetNameIntent,
         GetRankIntent,
+        SpellNameIntent,
         HelpIntent,
         FallbackHandler,
         UnhandledIntent,
