@@ -306,7 +306,7 @@ const GetRankIntent = {
         let champion = slotValue(requestEnvelope.request.intent.slots.champion);
         if(champion.id && !ladder.id){
             return handlerInput.responseBuilder
-            .speak(`You need to specify the rank you want, like solo or flex`)
+            .speak(`You need to specify solo or flex`)
             .reprompt('Try asking what a champion\'s solo rank is in your game.')
             .getResponse();
         }
@@ -314,20 +314,26 @@ const GetRankIntent = {
         if(ladder.id && champion.name){
             let rank = await lr.getRank(sessionAttributes.region.id, parseInt(champion.id, 10), sessionAttributes.name, ladder.id);
             if(rank && rank.rank){
+                if(rank.rank === 'unranked'){
+                    return handlerInput.responseBuilder
+                    .speak(`${champion.name} is unranked in ${ladder.name}.`)
+                    .reprompt('Try asking me what their rank is in ' + (ladder.name === 'soloduo') ? 'flex' : 'solo.')
+                    .getResponse();
+                }
                 return handlerInput.responseBuilder
                     .speak(`${champion.name} is ${rank.tier} ${rank.rank}, ${rank.lp} <say-as interpret-as="spell-out">lp</say-as>.`)
-                    .reprompt('Try asking what a champion\'s rank is in your game.')
+                    .reprompt('Try asking about another champion in your game.')
                     .getResponse();
             }else{
                 return handlerInput.responseBuilder
-                    .speak(`Couldn\'t find a rank for ${champion.name}. They might be unranked, or are not in the game.`)
-                    .reprompt('Sorry, I didn\'t get that.')
+                    .speak(`${champion.name} does not exist in the game.`)
+                    .reprompt('Try asking about a champion in your game.')
                     .getResponse();
             }
         }
 
         return handlerInput.responseBuilder
-            .speak('Sorry, I didn\'t get that. Make sure you tell me the champion and the ranked ladder you want to know about.')
+            .speak('Sorry, I didn\'t get that. Make sure you tell me the champion and the ranked ladder like solo or flex.')
             .reprompt('Sorry, I didn\'t get that.')
             .getResponse();
     },

@@ -1,0 +1,31 @@
+Short Description:
+Find the solo/duo or flex rank of any champion in your current League of Legends game.
+
+Long Description:
+Have you ever wanted to know the rank of the Irelia that is 1v5ing your team, or the Master Yi that is giving you a sweet carry? Well, with the League of Legends Rank Finder skill for Alexa, you can now find this information quickly and easily from the comfort of your Alexa enabled device. Tabbing out to find this info on a website is now a thing of the past.
+
+With League of Legends Rank Finder, all you have to do is give Alexa your summoner name and the region your account is in, and you will be granted the ability to find the solo/duo or flex rank of any champion in your current game. You only have to set your name and region once, Alexa will remember this information in any future sessions.
+
+To set up your region, all you have to do is give the command "Set my region to {region}." ex. "Set my region to North America."
+
+To set your summoner name, you must give the command "Set summoner name to {name-spelled-out}." In order for Alexa to properly recognize the characters in your summoner name, you must spell it out. Right now League of Legends Rank Finder only supports summoner names that only consist of alphanumeric characters (names with accents or symbols are not supported).
+
+*IMPORTANT*
+If your summoner name is 6 characters or less, Alexa will not recognize the set summoner name command when you spell out your name. In order to get around this, you must pad the end of your spelling with the keyword "done." This will ensure Alexa has enough data to correctly parse your summoner name.
+
+Ex. If your summoner name is "Foo 1" You must say "Set summoner name to F O O space one done done."
+
+After you have set your region and summoner name, you are ready to find some ranks. When you are in-game, simply give the command "What rank is {champion} in solo." or "What rank is {champion} in flex." This will give you the specified champion's rank in solo/duo and flex respectively. Ex. "What rank is Caitlyn in solo" will tell you what rank the Caitlyn player is in the Ranked Solo/Duo ladder.
+
+That's all there is to it! Be on the lookout for updates that add more statistics and functionality in the future. Enjoy!
+
+Example Phrases:
+- Alexa, open league ranks
+- Set region to North America
+- What rank is Caitlyn in solo
+
+Category: Games Info & Accessories
+
+Keywords: lol, league, leagueoflegends, rank, finder, statistics, lp, tier
+
+Privacy Policy: https://developer.riotgames.com/policies.html#generalpolicies

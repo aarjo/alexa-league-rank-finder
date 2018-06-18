@@ -67,6 +67,8 @@ leagueRequest.getRank = async function(region, championId, name, ladder) {
             for (var player in participants) {
                 if (participants[player].championId === championId) {
                     rank = await getRankById(region, participants[player].summonerId, ladder);
+                    if(!rank.rank)
+                        rank.rank = 'unranked';
                 }
             }
         }
